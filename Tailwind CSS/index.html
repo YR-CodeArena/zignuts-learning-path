@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Demo</title>
+  <script type="module" src="/src/main.ts"></script>
+</head>
+<body class="min-h-screen bg-slate-100 flex items-center justify-center p-6">
+  <div class="max-w-sm w-full bg-white rounded-xl shadow-md overflow-hidden border border-slate-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">Active</span>
+        <span class="text-xs text-slate-500">Session 03</span>
+      </div>
+      <h2 class="text-xl font-bold text-slate-900 mb-2">Tailwind Utility Component</h2>
+      <p class="text-slate-600 text-sm mb-6">Built using utility classes for layout, typography, flexbox, and hover states.</p>
+      <div class="flex items-center gap-3">
+        <button class="flex-1 bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 active:scale-95 transition-all text-sm">Action</button>
+        <button class="flex-1 bg-slate-100 text-slate-700 font-medium py-2 px-4 rounded-lg hover:bg-slate-200 transition-all text-sm border border-slate-300">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

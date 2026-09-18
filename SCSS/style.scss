@@ -1,0 +1,55 @@
+@use "sass:math";
+@use "base" as *;
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { 
+    display: inline-block; 
+  }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+}
+
+%message-shared {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  color: #333333;
+}
+
+.message {
+  @extend %message-shared;
+}
+
+.success {
+  @extend %message-shared;
+  border-color: #28a745;
+}
+
+.error {
+  @extend %message-shared;
+  border-color: #dc3545;
+}
+
+.box {
+  @include transform(rotate(30deg));
+  width: math.div(300px, 960px) * 100%;
+}

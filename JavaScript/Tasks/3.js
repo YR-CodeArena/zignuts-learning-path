@@ -23,12 +23,12 @@ class Triangle extends Shape {
   }
 
   calculateArea() {
-    return 0.5 * this.base * this.height;
+    return (this.base * this.height) / 2;
   }
 }
 
-const myCircle = new Circle(5);
-console.log(myCircle.calculateArea());
+let c = new Circle(5);
+console.log(c.calculateArea());
 
-const myTriangle = new Triangle(10, 4);
-console.log(myTriangle.calculateArea());
+let t = new Triangle(10, 4);
+console.log(t.calculateArea());

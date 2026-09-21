@@ -4,31 +4,26 @@ class University {
     this.departments = [];
   }
 
-  addDepartment(department) {
-    this.departments.push(department);
+  addDepartment(dept) {
+    this.departments.push(dept);
   }
 
-  removeDepartment(department) {
-    let newDepartments = [];
-    for (let i = 0; i < this.departments.length; i++) {
-      if (this.departments[i] !== department) {
-        newDepartments.push(this.departments[i]);
-      }
+  removeDepartment(dept) {
+    let index = this.departments.indexOf(dept);
+    if (index !== -1) {
+      this.departments.splice(index, 1);
     }
-    this.departments = newDepartments;
   }
 
   displayDepartments() {
-    console.log(this.name + " Departments:");
-    for (let i = 0; i < this.departments.length; i++) {
-      console.log(this.departments[i]);
-    }
+    console.log(this.name);
+    console.log(this.departments);
   }
 }
 
-const myUni = new University("Gujarat Technological University");
-myUni.addDepartment("Computer Engineering");
-myUni.addDepartment("Information Technology");
-myUni.addDepartment("Mechanical Engineering");
-myUni.removeDepartment("Mechanical Engineering");
-myUni.displayDepartments();
+let uni = new University("My University");
+uni.addDepartment("Computer");
+uni.addDepartment("IT");
+uni.addDepartment("Mechanical");
+uni.removeDepartment("Mechanical");
+uni.displayDepartments();

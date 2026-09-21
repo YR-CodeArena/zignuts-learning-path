@@ -1,38 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Fibonacci Generator</title>
-</head>
 <body>
-  <input type="number" id="stepsInput" placeholder="Enter steps" />
-  <button id="printBtn">Print</button>
-  <p id="result"></p>
+  <input type="number" id="steps">
+  <button onclick="printFibonacci()">Print</button>
+  <p id="output"></p>
 
   <script>
-    const button = document.getElementById("printBtn");
-
-    button.addEventListener("click", function () {
-      const steps = Number(document.getElementById("stepsInput").value);
-      const resultElement = document.getElementById("result");
-
-      if (steps <= 0) {
-        resultElement.innerText = "";
-        return;
-      }
-
+    function printFibonacci() {
+      let n = Number(document.getElementById("steps").value);
       let series = [];
       let a = 0;
       let b = 1;
 
-      for (let i = 0; i < steps; i++) {
+      for (let i = 0; i < n; i++) {
         series.push(a);
         let next = a + b;
         a = b;
         b = next;
       }
 
-      resultElement.innerText = series.join(", ");
-    });
+      document.getElementById("output").innerHTML = series.join(", ");
+    }
   </script>
 </body>
 </html>

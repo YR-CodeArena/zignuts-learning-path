@@ -1,0 +1,1 @@
+'''Open terminal and write "python" and press enter.'''

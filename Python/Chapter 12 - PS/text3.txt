@@ -1,0 +1,1 @@
+Log: File 1's content copied to file 2.Log: File 1's content copied to file 2.Log: File 1's content copied to file 2.Log: File 1's content copied to file 2.

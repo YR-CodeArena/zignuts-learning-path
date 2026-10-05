@@ -1,0 +1,1 @@
+# s = {8, 7, 12, "Harry", [1,2]} #Sets can only contain immutable and hashable elements, and a list is none

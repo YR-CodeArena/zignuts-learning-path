@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro - Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-2xl font-bold text-center text-indigo-600 mb-2">TaskPro</h1>
+        <p class="text-gray-600 text-center text-sm mb-6">Create an account to start organizing</p>
+
+        <div id="alertBox" class="hidden mb-4 p-3 rounded text-sm"></div>
+
+        <form id="registerForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <input type="text" id="username" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                Register
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-6">
+            Already have an account? 
+            <a href="/login/" class="text-indigo-600 hover:underline font-medium">Log in here</a>
+        </p>
+    </div>
+
+    <script>
+        if (localStorage.getItem('access_token')) {
+            window.location.href = '/dashboard/';
+        }
+
+        const registerForm = document.getElementById('registerForm');
+        const alertBox = document.getElementById('alertBox');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function showAlert(message, isError) {
+            alertBox.textContent = message;
+            alertBox.className = isError 
+                ? 'mb-4 p-3 rounded text-sm bg-red-100 text-red-700 block'
+                : 'mb-4 p-3 rounded text-sm bg-green-100 text-green-700 block';
+        }
+
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Creating account...';
+
+            try {
+                const response = await fetch('/api/register/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert('Account created successfully! Redirecting to login...', false);
+                    setTimeout(function() {
+                        window.location.href = '/login/';
+                    }, 1200);
+                } else {
+                    let errMsg = 'Registration failed: ';
+                    for (const key in data) {
+                        errMsg += Array.isArray(data[key]) ? data[key].join(' ') : data[key];
+                    }
+                    showAlert(errMsg, true);
+                }
+            } catch (err) {
+                showAlert('Network error. Please try again.', true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Register';
+            }
+        });
+    </script>
+</body>
+</html>

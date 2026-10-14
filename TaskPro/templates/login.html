@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskPro - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-md p-8">
+        <h1 class="text-2xl font-bold text-center text-indigo-600 mb-2">TaskPro</h1>
+        <p class="text-gray-600 text-center text-sm mb-6">Sign in to manage your daily tasks</p>
+
+        <div id="alertBox" class="hidden mb-4 p-3 rounded text-sm"></div>
+
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <input type="text" id="username" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input type="password" id="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+                Log In
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-6">
+            Don't have an account? 
+            <a href="/register/" class="text-indigo-600 hover:underline font-medium">Register here</a>
+        </p>
+    </div>
+
+    <script>
+        if (localStorage.getItem('access_token')) {
+            window.location.href = '/dashboard/';
+        }
+
+        const loginForm = document.getElementById('loginForm');
+        const alertBox = document.getElementById('alertBox');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function showAlert(message, isError) {
+            alertBox.textContent = message;
+            alertBox.className = isError 
+                ? 'mb-4 p-3 rounded text-sm bg-red-100 text-red-700 block'
+                : 'mb-4 p-3 rounded text-sm bg-green-100 text-green-700 block';
+        }
+
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Logging in...';
+
+            try {
+                const response = await fetch('/api/token/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('access_token', data.access);
+                    localStorage.setItem('refresh_token', data.refresh);
+                    localStorage.setItem('username', username);
+                    window.location.href = '/dashboard/';
+                } else {
+                    showAlert(data.detail || 'Invalid username or password', true);
+                }
+            } catch (err) {
+                showAlert('Network error. Please try again.', true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Log In';
+            }
+        });
+    </script>
+</body>
+</html>

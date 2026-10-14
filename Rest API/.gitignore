@@ -1,0 +1,24 @@
+# Database
+*.sqlite3
+db.sqlite3
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment variables & secrets
+.env
+local_settings.py
+
+# IDE / OS specific
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db

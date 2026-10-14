@@ -1,0 +1,21 @@
+# Database
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+venv/
+env/
+.venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

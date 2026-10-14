@@ -1,18 +1,14 @@
-import os
 from pathlib import Path
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-junior-intern-task-manager-secret-key-12345'
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -25,7 +21,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
 
-    # My local app
+    # Local app
     'tasks',
 ]
 
@@ -59,8 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'taskmanager_project.wsgi.application'
 
-# Database
-# Using default SQLite for simplicity
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -68,17 +62,8 @@ DATABASES = {
     }
 }
 
-# Password validation
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-]
+AUTH_PASSWORD_VALIDATORS = []
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -87,17 +72,14 @@ USE_TZ = True
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Django REST Framework configuration
+# REST Framework settings (Pure JWT API)
 REST_FRAMEWORK = {
-    # Support both JWT (for Postman/frontend) and Sessions (for browser UI)
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    # Require login by default (we can override this per view for register/login)
-    'DEFAULT_PERMISSION_CLASSES': (
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ),
+    ],
 }
 
 # SimpleJWT configuration
